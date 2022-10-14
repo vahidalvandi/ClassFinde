@@ -21,7 +21,7 @@ class PSR4NamespaceFactory
     public function getPSR4Namespaces()
     {
         $namespaces = $this->getUserDefinedPSR4Namespaces();
-        $vendorNamespaces = require($this->appConfig->getAppRoot() . 'vendor/composer/autoload_psr4.php');
+        $vendorNamespaces = require(base_path() . '/vendor/composer/autoload_psr4.php');
 
         $namespaces = array_merge($vendorNamespaces, $namespaces);
 
@@ -29,9 +29,9 @@ class PSR4NamespaceFactory
         $names = array_keys($namespaces);
         $directories = array_values($namespaces);
         $self = $this;
-        $namespaces = array_map(function($index) use ($self, $names, $directories) {
+        $namespaces = array_map(function ($index) use ($self, $names, $directories) {
             return $self->createNamespace($names[$index], $directories[$index]);
-        },range(0, count($namespaces) - 1));
+        }, range(0, count($namespaces) - 1));
 
         return $namespaces;
     }
@@ -76,7 +76,7 @@ class PSR4NamespaceFactory
 
         $self = $this;
         $appConfig = $this->appConfig;
-        $directories = array_map(function($directory) use ($self, $appConfig) {
+        $directories = array_map(function ($directory) use ($self, $appConfig) {
             if ($self->isAbsolutePath($directory)) {
                 return $directory;
             } else {
@@ -84,7 +84,7 @@ class PSR4NamespaceFactory
             }
         }, $directories);
 
-        $directories = array_filter(array_map(function($directory) {
+        $directories = array_filter(array_map(function ($directory) {
             return realpath($directory);
         }, $directories));
 
@@ -106,7 +106,7 @@ class PSR4NamespaceFactory
         $directories = $psr4Namespace->findDirectories();
 
         $self = $this;
-        $subnamespaces = array_map(function($directory) use ($self, $psr4Namespace){
+        $subnamespaces = array_map(function ($directory) use ($self, $psr4Namespace) {
             $segments = explode('/', $directory);
             $subnamespaceSegment = array_pop($segments);
 
@@ -128,7 +128,8 @@ class PSR4NamespaceFactory
      * @return bool
      * @throws ClassFinderException
      */
-    public function isAbsolutePath($path) {
+    public function isAbsolutePath($path)
+    {
         if (!is_string($path)) {
             $mess = sprintf('String expected but was given %s', gettype($path));
             throw new ClassFinderException($mess);
