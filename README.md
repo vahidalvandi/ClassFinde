@@ -1,5 +1,6 @@
 ClassFinder
 ===========
+https://gitlab.com/hpierce1102/ClassFinder
 
 A dead simple utility to identify classes in a given namespace.
 
@@ -19,7 +20,7 @@ Installing
 Installing is done by requiring it with Composer.
 
 ```
-composer require haydenpierce/class-finder
+composer require vahidalvandi/class-finder
 ```
 
 No other installation methods are currently supported.
