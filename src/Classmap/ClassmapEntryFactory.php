@@ -21,7 +21,7 @@ class ClassmapEntryFactory
     {
         // Composer will compile user declared mappings to autoload_classmap.php. So no additional work is needed
         // to fetch user provided entries.
-        $classmap = require($this->appConfig->getAppRoot() . 'vendor/composer/autoload_classmap.php');
+        $classmap = require(base_path() . '/vendor/composer/autoload_classmap.php');
 
         // if classmap has no entries return empty array
         if(count($classmap) == 0) {
